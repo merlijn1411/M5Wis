@@ -11,13 +11,10 @@ public class FromAToB : MonoBehaviour
 
     private Vector3 velocity;
     private float speed = 3f;
-    // Start is called before the first frame update
     void Start()
     {
         Enemy.transform.position = A.transform.position;
     }
-
-    // Update is called once per frame
     void Update()
     {
         Vector3 direction = B.transform.position - Enemy.transform.position;
