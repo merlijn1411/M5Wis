@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class CentroidManager : MonoBehaviour
@@ -24,16 +25,28 @@ public class CentroidManager : MonoBehaviour
     public GameObject hAB;
     public GameObject hAC;
 
+    private LinearFunction ChAB = new LinearFunction(1, 1);
+    public GameObject chab;
+    private LineRenderer Lchab;
+
+    private LinearFunction BhaB = new LinearFunction(1, 1);
+    public GameObject bhab;
+    private LineRenderer LBhab;
+
+    public GameObject centroid;
 
     void Start()
     {
         lrAB = AB.GetComponent<LineRenderer>();
         lrAC = AC.GetComponent<LineRenderer>();
-        lrBC = BC.GetComponent<LineRenderer>(); 
+        lrBC = BC.GetComponent<LineRenderer>();
+        Lchab = chab.GetComponent<LineRenderer>();
+        LBhab = bhab.GetComponent<LineRenderer>();
+
+  
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         hAB.transform.position = new Vector3((A.transform.position.x + B.transform.position.x) / 2.0f, (A.transform.position.y + B.transform.position.y) / 2.0f, 0);
@@ -51,5 +64,16 @@ public class CentroidManager : MonoBehaviour
         lrBC.SetPosition(0, new Vector3(-10, fbc.GetY(-10), 0));
         lrBC.SetPosition(1, new Vector3(10, fbc.GetY(10), 0));
 
+        //function line c and half ab
+        ChAB.LineTroughTwoPoint(C.transform.position, hAB.transform.position);
+        Lchab.SetPosition(0, new Vector3(-10, ChAB.GetY(-10), 0));
+        Lchab.SetPosition(1, new Vector3(10, ChAB.GetY(10), 0));
+
+        //function line b and half ac
+        BhaB.LineTroughTwoPoint(B.transform.position, hAC.transform.position);
+        LBhab.SetPosition(0, new Vector3(-10, BhaB.GetY(-10), 0));
+        LBhab.SetPosition(1, new Vector3(10, BhaB.GetY(10), 0));
+
+        centroid.transform.position = ChAB.intersection(BhaB);
     }
 }
