@@ -14,9 +14,9 @@ public class CentroidManager : MonoBehaviour
     public GameObject AC;
     public GameObject BC;
 
-    private LineRenderer lrAB;
-    private LineRenderer lrAC;
-    private LineRenderer lrBC;
+    private LineRenderer lRAB;
+    private LineRenderer lRAC;
+    private LineRenderer lRBC;
 
     private LinearFunction fab = new LinearFunction(1, 1);
     private LinearFunction fac = new LinearFunction(1, 1);
@@ -25,25 +25,24 @@ public class CentroidManager : MonoBehaviour
     public GameObject hAB;
     public GameObject hAC;
 
-    private LinearFunction ChAB = new LinearFunction(1, 1);
+    private LinearFunction CHAB = new LinearFunction(1, 1);
     public GameObject chab;
-    private LineRenderer Lchab;
+    private LineRenderer lchaB;
 
-    private LinearFunction BhaB = new LinearFunction(1, 1);
-    public GameObject bhab;
-    private LineRenderer LBhab;
-
-    public GameObject centroid;
+    private LinearFunction BHAC = new LinearFunction(1, 1);
+    public GameObject bhac;
+    private LineRenderer lbhaC;
+    public GameObject centoid;
 
     void Start()
     {
-        lrAB = AB.GetComponent<LineRenderer>();
-        lrAC = AC.GetComponent<LineRenderer>();
-        lrBC = BC.GetComponent<LineRenderer>();
-        Lchab = chab.GetComponent<LineRenderer>();
-        LBhab = bhab.GetComponent<LineRenderer>();
+        lRAB = AB.GetComponent<LineRenderer>();
+        lRAC = AC.GetComponent<LineRenderer>();
+        lRBC = BC.GetComponent<LineRenderer>();
+        lchaB = chab.GetComponent<LineRenderer>();
+        lbhaC = bhac.GetComponent<LineRenderer>();
 
-  
+
 
     }
 
@@ -53,27 +52,27 @@ public class CentroidManager : MonoBehaviour
         hAC.transform.position = new Vector3((A.transform.position.x + C.transform.position.x) / 2.0f, (A.transform.position.y + C.transform.position.y) / 2.0f, 0);
 
         fab.LineTroughTwoPoint(A.transform.position, B.transform.position);
-        lrAB.SetPosition(0, new Vector3(-10, fab.GetY(-10), 0));
-        lrAB.SetPosition(1, new Vector3(10, fab.GetY(10), 0));
+        lRAB.SetPosition(0, new Vector3(-10, fab.GetY(-10), 0));
+        lRAB.SetPosition(1, new Vector3(10, fab.GetY(10), 0));
 
         fac.LineTroughTwoPoint(A.transform.position, C.transform.position);
-        lrAC.SetPosition(0, new Vector3(-10, fac.GetY(-10), 0));
-        lrAC.SetPosition(1, new Vector3(10, fac.GetY(10), 0));
+        lRAC.SetPosition(0, new Vector3(-10, fac.GetY(-10), 0));
+        lRAC.SetPosition(1, new Vector3(10, fac.GetY(10), 0));
 
         fbc.LineTroughTwoPoint(B.transform.position, C.transform.position);
-        lrBC.SetPosition(0, new Vector3(-10, fbc.GetY(-10), 0));
-        lrBC.SetPosition(1, new Vector3(10, fbc.GetY(10), 0));
+        lRBC.SetPosition(0, new Vector3(-10, fbc.GetY(-10), 0));
+        lRBC.SetPosition(1, new Vector3(10, fbc.GetY(10), 0));
 
-        //function line c and half ab
-        ChAB.LineTroughTwoPoint(C.transform.position, hAB.transform.position);
-        Lchab.SetPosition(0, new Vector3(-10, ChAB.GetY(-10), 0));
-        Lchab.SetPosition(1, new Vector3(10, ChAB.GetY(10), 0));
+        // function line C and half AB
+        CHAB.LineTroughTwoPoint(C.transform.position, hAB.transform.position);
+        lchaB.SetPosition(0, new Vector3(-10, CHAB.GetY(-10), 0));
+        lchaB.SetPosition(1, new Vector3(10, CHAB.GetY(10), 0));
 
-        //function line b and half ac
-        BhaB.LineTroughTwoPoint(B.transform.position, hAC.transform.position);
-        LBhab.SetPosition(0, new Vector3(-10, BhaB.GetY(-10), 0));
-        LBhab.SetPosition(1, new Vector3(10, BhaB.GetY(10), 0));
+        // function line B and half AC
+        BHAC.LineTroughTwoPoint(B.transform.position, hAC.transform.position);
+        lbhaC.SetPosition(0, new Vector3(-10, BHAC.GetY(-10), 0));
+        lbhaC.SetPosition(1, new Vector3(10, BHAC.GetY(10), 0));
 
-        centroid.transform.position = ChAB.intersection(BhaB);
+        centoid.transform.position = CHAB.intesection(BHAC);
     }
 }

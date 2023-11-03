@@ -25,11 +25,13 @@ public class LinearFunction
         this.intercept = B.y - this.slope * B.x;
     }
 
-    public Vector3 intersection(LinearFunction m)
+    public Vector3 intesection(LinearFunction m)
     {
-        Vector3 intersectionPoint = new Vector3(0,0,0);
-        float intersection_x = (m.intercept - this.intercept)/(this.slope - m.slope);
-        float intersection_y = this.slope - intersection_x + this.intercept;
+        Vector3 intersectionPoint = new Vector3(0, 0, 0);
+
+        float intersection_x = (m.intercept - this.intercept) / (this.slope - m.slope);
+        float intersection_y = this.slope * intersection_x + this.intercept;
+
         intersectionPoint.x = intersection_x;
         intersectionPoint.y = intersection_y;
         return intersectionPoint;
