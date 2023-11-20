@@ -1,2 +1,2 @@
 # M5Wis
-dit is voor wiskunde 
+In deze Repo staat alles van wiskunde van het afgelopen jaar. 
